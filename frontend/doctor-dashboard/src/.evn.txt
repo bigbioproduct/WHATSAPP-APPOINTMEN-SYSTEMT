@@ -1,0 +1,2 @@
+.evn
+SPREADSHEET_ID=1V4vJzrTitSLLzsUrFTu_cII-UuO23ohrQ5s_hBHPxs8
