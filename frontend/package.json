@@ -51,3 +51,4 @@
   },
   "proxy": "http://localhost:3000"
 }
+// Compare this snippet from package.json:
