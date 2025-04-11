@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LandingPage from './Components/LandingPage.jsx';
+import LandingPage from './Components/LandingPageTemp.jsx';
+
 import Navbar from './Components/Navbar';
 import DoctorRegister from './Components/DoctorRegister.jsx';
 import DoctorLogin from './Components/DoctorLogin.jsx';
