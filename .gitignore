@@ -7,7 +7,7 @@ backend/.env
 # 👉 Ignore service account credentials
 service-account.json
 
-# 👉 Ignore Node modules (both frontend & backend)
+# 👉 Ignore Node modules
 node_modules/
 frontend/node_modules/
 backend/node_modules/
@@ -17,6 +17,7 @@ build/
 dist/
 frontend/build/
 backend/build/
+
 # 👉 Ignore Vite cache (for React + Vite)
 .vite/
 
@@ -24,15 +25,18 @@ backend/build/
 *.log
 logs/
 
-# 👉 Ignore OS-generated system files
+# 👉 Ignore OS/system files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# 👉 Ignore testing output
+# 👉 Ignore test coverage outputs
 coverage/
 *.lcov
 
-# 👉 Ignore lock files (optional, if you're not using them in CI/CD)
+# 👉 Ignore lock files (if not used in CI/CD)
 yarn.lock
 pnpm-lock.yaml
+# Ignore Google API credentials
+frontend/doctor-dashboard/src/server/.env
+google-sheet-api-credentials.json
