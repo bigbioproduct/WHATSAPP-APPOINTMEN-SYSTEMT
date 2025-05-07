@@ -40,12 +40,19 @@ function DoctorRegister() {
     setLoading(true);
 
     try {
-      const { data: { doctor } } = await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/register-doctor`,
         formData
       );
 
-      alert('✅ Doctor Registered: ' + doctor.name);
+      console.log('🧾 API Response:', response);
+      const doctor = response?.data?.doctor;
+
+      if (doctor?.name) {
+        alert('✅ Doctor Registered: ' + doctor.name);
+      } else {
+        alert('✅ Doctor Registered!');
+      }
 
       setFormData({
         name: '',
@@ -60,7 +67,11 @@ function DoctorRegister() {
       setPasswordStrength('');
     } catch (error) {
       console.error('❌ Registration failed:', error);
-      alert('❌ Registration failed. Try again.');
+      if (error.response?.data?.message) {
+        alert('❌ ' + error.response.data.message);
+      } else {
+        alert('❌ Registration failed. Try again.');
+      }
     }
 
     setLoading(false);
@@ -70,7 +81,7 @@ function DoctorRegister() {
     <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4 mt-10">
       <h2 className="text-2xl font-bold text-center mb-4">👨‍⚕️ Doctor Registration</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        {[ 
+        {[
           { label: 'Name', name: 'name' },
           { label: 'Email', name: 'email' },
           { label: 'Designation', name: 'designation' },
@@ -103,13 +114,19 @@ function DoctorRegister() {
         />
 
         {/* 🎯 Password Strength Indicator */}
-        <p className={`text-sm ${passwordStrength === 'मज़बूत' ? 'text-green-600' : passwordStrength === 'मध्यम' ? 'text-yellow-600' : 'text-red-600'}`}>
+        <p className={`text-sm ${
+          passwordStrength === 'मज़बूत' ? 'text-green-600' :
+          passwordStrength === 'मध्यम' ? 'text-yellow-600' :
+          'text-red-600'
+        }`}>
           पासवर्ड स्ट्रेंथ: {passwordStrength}
         </p>
 
         <button
           type="submit"
-          className={`w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition ${
+            loading ? 'opacity-50 cursor-not-allowed' : ''
+          }`}
           disabled={loading}
         >
           {loading ? 'Registering...' : 'Register'}
