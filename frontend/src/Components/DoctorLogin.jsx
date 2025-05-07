@@ -26,9 +26,15 @@ function DoctorLogin() {
         formData
       );
 
-      alert('✅ लॉगिन सफल: ' + data.doctor.name);
+      // चेक करें कि doctor और name मौजूद है
+      if (data && data.doctor && data.doctor.name) {
+        alert('✅ लॉगिन सफल: ' + data.doctor.name);
+        // 👉 यहां login success होने पर आप redirect या token store कर सकते हैं
+      } else {
+        console.error('❌ Doctor data or name missing');
+        alert('❌ डॉक्टर का डेटा प्राप्त नहीं हुआ');
+      }
 
-      // 👉 आप यहां login success होने पर redirect या token store कर सकते हैं
     } catch (error) {
       console.error('❌ लॉगिन असफल:', error);
       alert('❌ ईमेल या पासवर्ड गलत है');
@@ -63,9 +69,7 @@ function DoctorLogin() {
 
         <button
           type="submit"
-          className={`w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition ${
-            loading ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
+          className={`w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={loading}
         >
           {loading ? 'लॉगिन कर रहे हैं...' : 'लॉगिन'}
