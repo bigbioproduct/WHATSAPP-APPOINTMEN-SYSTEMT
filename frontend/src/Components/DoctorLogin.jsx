@@ -26,20 +26,23 @@ function DoctorLogin() {
         formData
       );
 
+      console.log('API Response:', response?.data); // Log the response for debugging
+
       const doctor = response?.data?.doctor;
 
+      // Check if doctor and name exist in response
       if (doctor && doctor.name) {
         alert('✅ लॉगिन सफल: ' + doctor.name);
 
-        // लॉगिन डेटा localStorage में सेव करें
+        // Save login data to localStorage
         localStorage.setItem('doctorToken', response.data.token || '');
         localStorage.setItem('doctorData', JSON.stringify(doctor));
 
-        // 🔁 आप successful login के बाद redirect करना चाहें तो यहां करें
+        // Redirect to doctor dashboard after successful login
         // window.location.href = "/doctor-dashboard";
       } else {
         console.error('❌ Doctor data or name missing');
-        alert('❌ डॉक्टर का डेटा प्राप्त नहीं हुआ');
+        alert('❌ डॉक्टर का डेटा प्राप्त नहीं हुआ, कृपया फिर से प्रयास करें');
       }
 
     } catch (error) {
