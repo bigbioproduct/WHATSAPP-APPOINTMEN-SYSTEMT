@@ -21,15 +21,22 @@ function DoctorLogin() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/login-doctor`,
         formData
       );
 
-      // चेक करें कि doctor और name मौजूद है
-      if (data && data.doctor && data.doctor.name) {
-        alert('✅ लॉगिन सफल: ' + data.doctor.name);
-        // 👉 यहां login success होने पर आप redirect या token store कर सकते हैं
+      const doctor = response?.data?.doctor;
+
+      if (doctor && doctor.name) {
+        alert('✅ लॉगिन सफल: ' + doctor.name);
+
+        // लॉगिन डेटा localStorage में सेव करें
+        localStorage.setItem('doctorToken', response.data.token || '');
+        localStorage.setItem('doctorData', JSON.stringify(doctor));
+
+        // 🔁 आप successful login के बाद redirect करना चाहें तो यहां करें
+        // window.location.href = "/doctor-dashboard";
       } else {
         console.error('❌ Doctor data or name missing');
         alert('❌ डॉक्टर का डेटा प्राप्त नहीं हुआ');
