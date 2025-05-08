@@ -35,19 +35,30 @@ function DoctorLogin() {
         alert('✅ लॉगिन सफल: ' + doctor.name);
 
         // Save login data to localStorage
-        localStorage.setItem('doctorToken', response.data.token || '');
+        localStorage.setItem('doctorToken', response?.data?.token || '');
         localStorage.setItem('doctorData', JSON.stringify(doctor));
 
         // Redirect to doctor dashboard after successful login
         // window.location.href = "/doctor-dashboard";
       } else {
-        console.error('❌ Doctor data or name missing');
+        console.error('❌ Doctor data or name missing', response?.data);  // Log the full response for better debugging
         alert('❌ डॉक्टर का डेटा प्राप्त नहीं हुआ, कृपया फिर से प्रयास करें');
       }
 
     } catch (error) {
-      console.error('❌ लॉगिन असफल:', error);
-      alert('❌ ईमेल या पासवर्ड गलत है');
+      // Check if error.response exists (this is for HTTP errors)
+      if (error?.response) {
+        console.error('❌ लॉगिन असफल: Server Error', error?.response);
+        alert('❌ सर्वर से जुड़ी समस्या है, कृपया फिर से प्रयास करें');
+      } else if (error?.message) {
+        // Handle other errors like network issues or unexpected errors
+        console.error('❌ लॉगिन असफल: ', error?.message);
+        alert('❌ ईमेल या पासवर्ड गलत है');
+      } else {
+        // In case there is no response or message
+        console.error('❌ लॉगिन असफल: अनजान त्रुटि');
+        alert('❌ कोई अनजान त्रुटि हुई है');
+      }
     }
 
     setLoading(false);
