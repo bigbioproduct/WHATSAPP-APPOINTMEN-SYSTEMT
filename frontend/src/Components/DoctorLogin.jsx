@@ -26,8 +26,11 @@ function DoctorLogin() {
         formData
       );
 
-      console.log('API Response:', response?.data); // Log the response for debugging
+      // 👉 Debug: Show raw API response
+      alert("DEBUG: " + JSON.stringify(response.data));
+      console.log('API Response:', response.data);
 
+      // ✅ Define doctor from response
       const doctor = response?.data?.doctor;
 
       // Check if doctor and name exist in response
@@ -41,23 +44,20 @@ function DoctorLogin() {
         // Redirect to doctor dashboard after successful login
         // window.location.href = "/doctor-dashboard";
       } else {
-        console.error('❌ Doctor data or name missing', response?.data);  // Log the full response for better debugging
+        console.error('❌ Doctor data or name missing:', response?.data);
         alert('❌ डॉक्टर का डेटा प्राप्त नहीं हुआ, कृपया फिर से प्रयास करें');
       }
 
     } catch (error) {
-      // Check if error.response exists (this is for HTTP errors)
       if (error?.response) {
-        console.error('❌ लॉगिन असफल: Server Error', error?.response);
+        console.error('❌ सर्वर त्रुटि:', error.response);
         alert('❌ सर्वर से जुड़ी समस्या है, कृपया फिर से प्रयास करें');
       } else if (error?.message) {
-        // Handle other errors like network issues or unexpected errors
-        console.error('❌ लॉगिन असफल: ', error?.message);
+        console.error('❌ नेटवर्क त्रुटि:', error.message);
         alert('❌ ईमेल या पासवर्ड गलत है');
       } else {
-        // In case there is no response or message
-        console.error('❌ लॉगिन असफल: अनजान त्रुटि');
-        alert('❌ कोई अनजान त्रुटि हुई है');
+        console.error('❌ अज्ञात त्रुटि');
+        alert('❌ कोई अज्ञात त्रुटि हुई है');
       }
     }
 

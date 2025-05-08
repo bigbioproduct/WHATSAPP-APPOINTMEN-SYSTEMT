@@ -1,4 +1,4 @@
-# 👉 Ignore environment files
+# 👉 Ignore environment files 
 .env
 *.env
 frontend/.env
@@ -37,6 +37,37 @@ coverage/
 # 👉 Ignore lock files (if not used in CI/CD)
 yarn.lock
 pnpm-lock.yaml
-# Ignore Google API credentials
+
+# 👉 Ignore Google API credentials
 frontend/doctor-dashboard/src/server/.env
 google-sheet-api-credentials.json
+
+# 👉 Ignore npm-debug files (common for npm errors)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 👉 Ignore editor configuration files (for different IDEs/editors)
+.vscode/
+.idea/
+
+# 👉 Ignore local development tools and IDE files
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# 👉 Ignore temporary files or caches (common in large projects)
+.cache/
+tmp/
+
+# 👉 Ignore Docker files if they are not needed in repo
+docker-compose.yml
+Dockerfile
+
+# 👉 Ignore test database files
+test-database.db
+
+# 👉 Ignore generated documentation files
+docs/
+
